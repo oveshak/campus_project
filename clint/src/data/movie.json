@@ -1,0 +1,55 @@
+[
+    {
+      "id": 1,
+      "title": "The Silent Whisper",
+      "genre": "Thriller",
+      "duration": "120 min",
+      "category": "now showing",
+      "releaseDate": "2024-08-15",
+      "director": "John Doe",
+      "cast": ["Jane Smith", "John Roe", "Alice Green"],
+      "synopsis": "A gripping thriller about a detective chasing a mysterious killer.",
+      "rating": "PG-13",
+      "poster": "https://example.com/posters/thesilentwhisper.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Space Odyssey: The New Frontier",
+      "genre": "Science Fiction",
+      "category": "now showing",
+      "duration": "140 min",
+      "releaseDate": "2024-08-22",
+      "director": "Emily Stone",
+      "cast": ["Chris Black", "Sarah White", "Tom Blue"],
+      "synopsis": "A space crew embarks on a mission to discover a new habitable planet.",
+      "rating": "PG-13",
+      "poster": "https://example.com/posters/spaceodyssey.jpg"
+    },
+    {
+      "id": 3,
+      "title": "The Lost Kingdom",
+      "category": "upcoming",
+      "genre": "Fantasy",
+      "duration": "130 min",
+      "releaseDate": "2024-10-05",
+      "director": "Michael Green",
+      "cast": ["David Brown", "Lucy Gold", "Nathan Grey"],
+      "synopsis": "A prince must reclaim his kingdom from an ancient evil.",
+      "rating": "PG-13",
+      "poster": "https://example.com/posters/thelostkingdom.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Deep Blue",
+      "category": "upcoming",
+      "genre": "Drama",
+      "duration": "115 min",
+      "releaseDate": "2024-11-18",
+      "director": "Sophia King",
+      "cast": ["Anna Silver", "James Violet", "Mark Olive"],
+      "synopsis": "An inspiring story of a woman's journey to break records in free-diving.",
+      "rating": "R",
+      "poster": "https://example.com/posters/deepblue.jpg"
+    }
+  ]
+  
