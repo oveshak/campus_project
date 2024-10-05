@@ -27,7 +27,9 @@ const MovieCard = ({ movies }) => {
                         </div>
                         <div className="p-4">
                             <h2 className="text-white text-lg font-bold mb-2 truncate">{movie.title}</h2>
-                            <p className="text-gray-300 text-sm mb-1">Release: {movie.releaseDate}</p>
+                            <p className="text-gray-300 text-sm mb-1">
+    Release: {new Date(movie.releaseDate).toLocaleDateString()}
+</p>
                             <p className="text-gray-300 text-sm mb-4">Genre: {movie.genre}</p>
                             <div className="flex space-x-2">
                             <Link to={`/ticket/${movie._id}`}>

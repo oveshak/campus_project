@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import fs from 'fs';
 // Assuming you have an authentication middleware
-import { addMovie, deleteMovie, getAllMovies, getSingleMovie,  searchMovies, updateMovie } from '../controller/movie.controller.js';
+import { addMovie, deleteMovie, getAllMovies, getSingleMovie,     searchMovies,     updateMovie } from '../controller/movie.controller.js';
 import { isAdmin } from '../midelware/admin.js';
 import { isAuthenticated } from '../midelware/user.auth.js';
  // Your movie controller file

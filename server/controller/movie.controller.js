@@ -97,28 +97,40 @@ export const getAllMovies = async (req, res) => {
 };
 
 
-//srarch movie 
-// Adjust the import as necessary
 
-// controllers/movieController.js
-// controllers/movieController.js
 export const searchMovies = async (req, res) => {
-  const { title } = req.query;
+  const { title } = req.query; // Get title from query parameters
 
   try {
+      let query = {};
+
       if (title) {
-          const movies = await Movie.find({
-              title: { $regex: title, $options: 'i' },
-          });
-          return res.json(movies);
+          query.title = { $regex: title, $options: 'i' }; // Case-insensitive search
       }
-      const movies = await Movie.find();
-      return res.json(movies);
+
+      console.log('Search Query:', query);
+
+      const movies = await Movie.find(query);
+
+      if (movies.length === 0) {
+          return res.status(404).json({ message: 'No movies found.' });
+      }
+
+      return res.json(movies); // Return the found movies
   } catch (error) {
-      console.error("Search error:", error);
-      return res.status(500).json({ message: "Server error while searching for movies." });
+      console.error('Search error:', error);
+      return res.status(500).json({ message: 'Server error while searching for movies.' });
   }
 };
+
+
+
+
+
+
+
+
+
 
 
 

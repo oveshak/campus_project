@@ -43,7 +43,7 @@ const ContactForm = () => {
 <Helmet>
                 <title>Movie | Contact</title>
             </Helmet>
-        <div className="hero bg-base-200 min-h-screen">
+        <div className="hero bg-base-200 h-[380px]">
   <div className="hero-content text-center">
     <div className="max-w-md">
       <h1 className="text-5xl font-bold">Contact Us</h1>

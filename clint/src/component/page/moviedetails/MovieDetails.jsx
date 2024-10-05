@@ -61,7 +61,15 @@ const MovieDetails = () => {
                         </div>
                         <div className="flex-grow text-center md:text-left ">
                             <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
-                            <p className="text-white mt-2">Release Date: <span className="font-medium">{movie.releaseDate}</span></p>
+                            <p className="text-white mt-2">
+    Release Date: <span className="font-medium">
+        {new Date(movie.releaseDate).toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        })}
+    </span>
+</p>
                             <p className="text-white mt-1">Genre: <span className="font-medium">{movie.genre}</span></p>
                             <p className="text-white mt-1">Rating: <span className="font-medium">{movie.rating}</span></p>
                             <p className="text-white mt-1">Duration: <span className="font-medium">{movie.duration} min</span></p>
