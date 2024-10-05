@@ -47,8 +47,11 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="flex items-center space-x-2">
+  <Link className="flex items-center space-x-2" to="/">
   <img className="w-[40px]" src="https://t4.ftcdn.net/jpg/05/00/61/19/360_F_500611919_5wuf1qGRCubiXXxIa7og1fLLCyHi6qP9.jpg" alt="movie icon" />
   <h1 className="text-2xl">MOVIE</h1>
+  
+  </Link>
 </div>
 
             </div>

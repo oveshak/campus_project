@@ -75,7 +75,7 @@ const AllUserBookings = () => {
 
     return (
         <div>
-            <h1>All User Bookings</h1>
+            <h1>Movie | All User Bookings</h1>
             {bookings.length > 0 ? (
                 <table className="min-w-full border">
                     <thead>
