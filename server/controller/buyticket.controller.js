@@ -9,17 +9,16 @@ const stripe = new Stripe('sk_test_51Q68Bz047YvEic2uq63yUjYj1MO8F7FDsDPQwg7RqfiH
 
 export const bookTicket = async (req, res) => {
     try {
-        const { showtimeId, ticketQuantity,movie} = req.body; // Removed movie from here since it's fetched from showtime
+        const { showtimeId, ticketQuantity, movie } = req.body;
         const userId = req.user.id;
         
-
         // Validate showtimeId
         if (!mongoose.Types.ObjectId.isValid(showtimeId)) {
             return res.status(400).json({ message: 'Invalid showtime ID format' });
         }
 
         // Find the showtime and populate movie details
-        const showtime = await MovieShowTime.findById(showtimeId)
+        const showtime = await MovieShowTime.findById(showtimeId);
         
         if (!showtime) {
             return res.status(404).json({ message: 'Showtime not found' });
@@ -33,8 +32,20 @@ export const bookTicket = async (req, res) => {
         // Calculate total price (in cents)
         const totalPrice = ticketQuantity * showtime.price; // Ensure it's in cents for Stripe
 
-        const movies=await Movie.findById(movie).populate('showtimes')
-        console.log(movies)
+        // Find the movie and populate its showtimes
+        const movieDetails = await Movie.findById(movie).populate('showtimes');
+        
+        // Find the correct showtime in the movie's showtimes array
+        const movieShowtime = movieDetails.showtimes.find(st => st._id.equals(showtimeId));
+        if (!movieShowtime) {
+            return res.status(404).json({ message: 'Movie showtime not found' });
+        }
+
+        // Fetch the user details to get the user's name
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
         // Create a new booking
         const newBooking = new TicketBooking({
@@ -42,8 +53,7 @@ export const bookTicket = async (req, res) => {
             showtime: showtimeId,
             ticketQuantity,
             totalPrice,
-            movie:movie,
-             // Save the movie ID
+            movie: movie, // Save the movie ID
             paymentStatus: 'Pending',
         });
 
@@ -66,8 +76,8 @@ export const bookTicket = async (req, res) => {
                 price_data: {
                     currency: 'usd',
                     product_data: {
-                        name:movies.title, 
-                        hallname:showtime.hallname
+                        name: movieDetails.title,
+                        description: `Booked by: ${user.name} | Hall: ${movieShowtime.hallName}`, // Include user's name in description
                     },
                     unit_amount: totalPrice, // Use the total price in cents
                 },
@@ -92,6 +102,7 @@ export const bookTicket = async (req, res) => {
         return res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+
 
 
 

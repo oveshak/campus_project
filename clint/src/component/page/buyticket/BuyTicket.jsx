@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { AuthContext } from '../../../provider/AuthProvider';
 import { loadStripe } from '@stripe/stripe-js';
+import { Helmet } from 'react-helmet-async';
 
 const BuyTicket = () => {
   const { id } = useParams(); // Movie ID from URL parameters
@@ -100,7 +101,31 @@ const BuyTicket = () => {
   };
 
   return (
-    <div className="bg-black p-6">
+    <>
+<Helmet>
+                <title>Movie | Booking Ticket</title>
+            </Helmet>
+
+
+
+            <div className="hero bg-base-200 h-[380px]">
+  <div className="hero-content text-center">
+    <div className="max-w-md">
+      <h1 className="text-5xl font-bold">Booking Ticket</h1>
+      <p className="py-6">
+        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+        quasi. In deleniti eaque aut repudiandae et a id nisi.
+      </p>
+      
+    </div>
+  </div>
+</div>
+
+
+
+    <div className=" p-6 h-[500px] ">
+
+
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left section: Movie Selection */}
         <div className="col-span-2 space-y-8">
@@ -208,6 +233,10 @@ const BuyTicket = () => {
         </div>
       </div>
     </div>
+    
+    
+    
+    </>
   );
 };
 

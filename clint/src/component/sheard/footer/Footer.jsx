@@ -1,12 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
         <footer className="footer bg-neutral text-neutral-content p-10">
   <aside>
   <div className="flex items-center space-x-2">
-  <img className="w-[40px]" src="https://t4.ftcdn.net/jpg/05/00/61/19/360_F_500611919_5wuf1qGRCubiXXxIa7og1fLLCyHi6qP9.jpg" alt="movie icon" />
-  <h1 className="text-2xl">MOVIE</h1>
+ <Link to="/" className="flex items-center space-x-2">
+ <img className="w-[40px]" src="https://t4.ftcdn.net/jpg/05/00/61/19/360_F_500611919_5wuf1qGRCubiXXxIa7og1fLLCyHi6qP9.jpg" alt="movie icon" />
+ <h1 className="text-2xl">MOVIE</h1>
+ 
+ </Link>
 </div>
 
     <p>

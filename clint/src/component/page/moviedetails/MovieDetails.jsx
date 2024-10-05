@@ -52,13 +52,14 @@ const MovieDetails = () => {
             <div className="hero h-[380px] mb-5 rounded-lg ">
                 <div>
                     <div className="flex flex-col md:flex-row items-center justify-center rounded-lg space-y-4 md:space-y-0 md:space-x-6">
-                        <div className="flex-shrink-0">
-                            <img 
-                                src={`http://127.0.0.1:5000${movie.image}`} 
-                                alt={`${movie.title} Poster`} 
-                                className="rounded-lg shadow-lg max-w-xs md:max-w-sm transition-transform transform hover:scale-105"
-                            />
-                        </div>
+                    <div className="flex-shrink-0">
+    <img 
+        src={`http://127.0.0.1:5000${movie.image}`} 
+        alt={`${movie.title} Poster`} 
+        className="rounded-lg shadow-lg max-w-xs md:max-w-sm max-h-80 object-cover transition-transform transform hover:scale-105"
+    />
+</div>
+
                         <div className="flex-grow text-center md:text-left ">
                             <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
                             <p className="text-white mt-2">
