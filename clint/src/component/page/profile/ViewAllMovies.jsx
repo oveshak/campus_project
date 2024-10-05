@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 const ViewAllMovies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,28 +32,55 @@ const ViewAllMovies = () => {
 
   // Handle delete movie
   const handleDelete = async (movieId) => {
-    if (window.confirm('Are you sure you want to delete this movie?')) {
+    // Show confirmation dialog first
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    });
+  
+    if (result.isConfirmed) {
       // Optimistically remove the movie from the state
       const updatedMovies = movies.filter(movie => movie._id !== movieId);
-      setMovies(updatedMovies);
-
+      setMovies(updatedMovies); 
+  
       try {
         const headers = {
           Authorization: `Bearer ${Cookies.get('token')}`, // Get token from cookies
         };
+  
+        // Proceed with the delete request
         await axios.delete(`http://127.0.0.1:5000/api/${movieId}`, { headers });
+  
+        // Show success message after deletion
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Movie deleted successfully!",
+          showConfirmButton: false,
+          timer: 1500
+        });
+  
       } catch (error) {
         console.error(error);
         setErrorMessage('Error deleting movie, please try again.');
-
+  
         // Revert back to the previous state if there was an error
         fetchMovies(); // Refetch movies from the API to restore the list
       }
     }
   };
+  
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+                <title>Movie | All Movie</title>
+            </Helmet>
       <h2 className="text-2xl font-bold mb-4">Movie List</h2>
       {loading && <p>Loading...</p>}
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}

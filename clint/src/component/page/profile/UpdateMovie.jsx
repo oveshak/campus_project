@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const UpdateMovie = () => {
   const { id } = useParams(); // Get the movie ID from the URL
@@ -100,20 +102,36 @@ const UpdateMovie = () => {
     try {
       const response = await axios.put(`http://127.0.0.1:5000/api/${id}`, formData, { headers });
       console.log('API Response:', response.data); // Log success response
-      setSuccessMessage('Movie updated successfully!');
+      
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Update Movie successfully!",
+        showConfirmButton: false,
+        timer: 1500
+      });
       
       // Redirect to the movie list or any other page
       setTimeout(() => {
-        navigate('/');
+        navigate('/profile');
       }, 2000); // Optional delay before redirecting
     } catch (error) {
       console.error('API Error:', error.response?.data || error.message); // Log error response
-      setErrorMessage('Error updating movie, please try again.');
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Can not Update Movie ",
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   };
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+                <title>Movie | Update Movie</title>
+            </Helmet>
       <h2 className="text-2xl font-bold mb-4">Update Movie</h2>
       {loading ? (
         <p>Loading...</p>

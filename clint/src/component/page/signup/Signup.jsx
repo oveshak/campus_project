@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'; // Import SweetAlert2 for notifications
 const Signup = () => {
     const [passwordVisible, setPasswordVisible] = useState(false); // State for password visibility
     const [loading, setLoading] = useState(false); // State for loading indicator
-    const { createUser } = useContext(AuthContext); // Get createUser from AuthContext
+    const { createUser,logOut } = useContext(AuthContext); // Get createUser from AuthContext
     const navigate = useNavigate(); // Hook for navigation
 
     const handleSubmit = async (e) => {
@@ -17,11 +17,13 @@ const Signup = () => {
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-
+    
         console.log({ name, email, password });
         try {
             setLoading(true); // Set loading to true while registering
             await createUser(name, email, password); // Await the createUser process
+    
+            // Show success message
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -29,12 +31,18 @@ const Signup = () => {
                 showConfirmButton: false,
                 timer: 900,
             });
-            
+    
+            e.target.reset();
+            await logOut();
+    
             // Delay navigation to ensure SweetAlert finishes
             setTimeout(() => {
-                navigate('/login'); // Redirect to login page after success
-            }, 1000); // Delay for smooth transition
-            
+                // Refresh the page
+                
+                // Navigate to login page after refresh
+                navigate('/login');
+                window.location.reload();
+            }, 1000); // Delay for 1000 milliseconds (1 second)
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -45,6 +53,7 @@ const Signup = () => {
             setLoading(false); // Reset loading state
         }
     };
+    
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible); // Toggle password visibility

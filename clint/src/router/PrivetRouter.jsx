@@ -1,10 +1,11 @@
 import { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+
 import { AuthContext } from '../provider/AuthProvider';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
-    const location = useLocation();
+    const location=useLocation()
 
     // If still loading authentication status, show a loading spinner
     if (loading) {
@@ -17,8 +18,8 @@ const PrivateRoute = ({ children }) => {
     }
 
     // If not authenticated, store the current path and redirect to login
-    localStorage.setItem('redirectPath', location.pathname);  // Store the current location in localStorage
-    return <Navigate to="/login" replace />;
+     // Store the current location in localStorage
+    return <Navigate state={{from:location}} replace to="/login"></Navigate>;
 };
 
 export default PrivateRoute;

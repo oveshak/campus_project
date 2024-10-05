@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const AddShowtime = () => {
   const [showtimeData, setShowtimeData] = useState({
@@ -35,7 +37,7 @@ const AddShowtime = () => {
 
     try {
       const res = await axios.post('http://127.0.0.1:5000/api/showtimes', showtimeData, { headers });
-      setSuccessMessage('Showtime added successfully!');
+    
       setShowtimeData({
         hallName: '',
         showDate: '',
@@ -44,8 +46,21 @@ const AddShowtime = () => {
         price: 0,
         availableSeats: 0,
       });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Add ShowTime successfully!",
+        showConfirmButton: false,
+        timer: 1500
+      });
     } catch (error) {
-      setErrorMessage('Error adding showtime, please try again.');
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "can not add show time",
+        showConfirmButton: false,
+        timer: 1500
+      });
     } finally {
       setLoading(false); // End loading
     }
@@ -53,6 +68,9 @@ const AddShowtime = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+                <title>Movie | Add Show Time</title>
+            </Helmet>
       <h2 className="text-2xl font-bold mb-4">Add Showtime</h2>
       <form onSubmit={handleSubmit} className="bg-gray-100 p-6 rounded-lg shadow-md">
         

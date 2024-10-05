@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema({
         enum: ['admin', 'user'],
         default: 'user'
     }
+    ,
+    ticketBook:[
+        {   
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'TicketBooking',
+        }
+    ]
+
 }, { timestamps: true }); // Adds createdAt and updatedAt fields
 
 export const User = mongoose.model('User', userSchema);

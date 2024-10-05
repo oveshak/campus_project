@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken'
 import  bcrypt  from "bcryptjs";
 import { User } from "../model/user.model.js";
+import mongoose from 'mongoose';
+import TicketBooking from '../model/buyticket.model.js';
 
 
 //register user
@@ -151,14 +153,51 @@ export const loginUserProfile= async (req, res) => {
   }
 };
 
-import cloudinary from 'cloudinary'
- // Configuration
-// Configuration
-cloudinary.config({ 
-  cloud_name: process.env.cloud_name, 
-  api_key: process.env.api_key, 
-  api_secret: process.env.api_secret
-});
+
+
+export const loginUserbooking = async (req, res) => {
+  try {
+      const userId = req.user.id; 
+
+      // Validate the user ID format
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+          return res.status(400).json({ message: 'Invalid user ID format' });
+      }
+
+      // Fetch user data from the database and populate 'ticketBook' with 'showtime' and 'movie'
+      const user = await User.findById(userId)
+          .populate({
+              path: 'ticketBook', // Populate the ticketBook field
+              populate: [
+                  {
+                      path: 'showtime', // Populate the showtime field within ticketBook
+                      model: 'MovieShowTime' // Ensure you use the correct model name for showtime
+                  },
+                  {
+                      path: 'movie', // Populate the movie field within ticketBook
+                      model: 'Movie' // Ensure you use the correct model name for movie
+                  }
+              ]
+          });
+
+      if (!user) {
+          return res.sendStatus(404); // User not found
+      }
+
+      console.log('Populated user:', user); // Log populated user for debugging
+
+      // Return user data, including ticket bookings
+      res.json({ user });
+  } catch (error) {
+      console.error('Error fetching user:', error);
+      res.sendStatus(500); // Internal server error
+  }
+};
+
+
+
+
+
 
 // Update user profile image in Cloudinary
 export const updateUserProfileImage = async (req, res) => {
@@ -186,4 +225,74 @@ export const updateUserProfileImage = async (req, res) => {
     res.status(500).json({ message: 'Server error updating profile image' });
   }
 };
+
+
+
+
+//get all user ticketBook admin can be seen
+export const getUserWithBookings = async (req, res) => {
+  try {
+      const userId = req.user.id; 
+      console.log(userId); // Assuming user is authenticated
+
+      // Validate the user ID format
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+          return res.status(400).json({ message: 'Invalid user ID format' });
+      }
+
+      const user = await User.findById(userId)
+      .populate({
+          path: 'ticketBook', // Populate the ticketBook field
+          populate: [
+              {
+                  path: 'showtime', // Populate the showtime field within ticketBook
+                  model: 'MovieShowTime' // Ensure you use the correct model name for showtime
+              },
+              {
+                  path: 'movie', // Populate the movie field within ticketBook
+                  model: 'Movie' // Ensure you use the correct model name for movie
+              }
+          ]
+      });
+
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      return res.status(200).json({ user });
+  } catch (error) {
+      console.error("Error fetching user with bookings:", error); // Log the error for debugging
+      return res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+
+
+//update booking prayment status
+
+export const updateBookingPaymentStatus = async (req, res) => {
+  try {
+      const bookingId = req.params.id; 
+      const { paymentStatus } = req.body;
+
+      // Validate the booking ID format
+      if (!mongoose.Types.ObjectId.isValid(bookingId)) {
+          return res.status(400).json({ message: 'Invalid booking ID format' });
+      }
+
+      // Update the booking's payment status
+      const booking = await TicketBooking.findByIdAndUpdate(bookingId, { paymentStatus }, { new: true });
+
+      // Check if the booking was found
+      if (!booking) {
+          return res.status(404).json({ message: "Booking not found" });
+      }
+
+      return res.json({ message: "Payment status updated successfully", booking }); 
+  } catch (e) {
+      console.error(e);
+      return res.status(500).json({ message: "Error updating booking" });
+  }
+};
+
 

@@ -18,6 +18,12 @@ import AddMovie from "../component/page/profile/AddMovie";
 import ViewAllMovies from "../component/page/profile/ViewAllMovies";
 import UpdateMovie from "../component/page/profile/UpdateMovie";
 import AddShowTime from "../component/page/profile/AddShowTime";
+import AllUserBookings from "../component/page/profile/AllUserBookings";
+import AllShowTime from "../component/page/profile/AllShowTime";
+
+import AllContactMessage from "../component/page/profile/AllContactMessage";
+import AddAllImage from "../component/page/profile/AddAllImage";
+import AddHeroImage from "../component/page/profile/AddHeroImage";
 
 // Function to create the app router
 export function createAppRouter(role) {
@@ -42,7 +48,13 @@ export function createAppRouter(role) {
         { path: "/profile/settings", element: <div>Settings Component</div> }, // Placeholder for Settings component
         { path: "/profile/allmovie", element: role === 'admin'&&<ViewAllMovies/> },
         { path: "/profile/update/:id", element: role === 'admin'&&<UpdateMovie/> },
-        { path: "/profile/showtime", element: role === 'admin'&&<AddShowTime/> }
+        { path: "/profile/showtime", element: role === 'admin'&&<AddShowTime/> },
+        { path: "/profile/allbooking", element: role === 'admin'&&<AllUserBookings/> },
+ { path: "/profile/allshowtime", element: role === 'admin'&&<AllShowTime/> },
+ { path: "/profile/imageadd", element: role === 'admin'&&<AddAllImage/>},
+       { path: "/profile/contact", element: role === 'admin'&&<AllContactMessage/>}, 
+       { path: "/profile/addHeroImage", element: role === 'admin'&&<AddHeroImage/>}, 
+
       ]
     }
   ];

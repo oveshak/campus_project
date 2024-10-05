@@ -95,3 +95,30 @@ export const getAllMovies = async (req, res) => {
     res.status(500).json({ message: 'Server error fetching movies' });
   }
 };
+
+
+//srarch movie 
+// Adjust the import as necessary
+
+// controllers/movieController.js
+// controllers/movieController.js
+export const searchMovies = async (req, res) => {
+  const { title } = req.query;
+
+  try {
+      if (title) {
+          const movies = await Movie.find({
+              title: { $regex: title, $options: 'i' },
+          });
+          return res.json(movies);
+      }
+      const movies = await Movie.find();
+      return res.json(movies);
+  } catch (error) {
+      console.error("Search error:", error);
+      return res.status(500).json({ message: "Server error while searching for movies." });
+  }
+};
+
+
+

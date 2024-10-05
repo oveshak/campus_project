@@ -15,6 +15,7 @@ const Profile = () => {
 
     return (
         <div className='bg-zinc-900 px-2 md:px-12 flex flex-col md:flex-row  py-8 gap-4'>
+            
             {!user && 
                 <div className='w-full h-full flex items-center justify-center'>
                     loading

@@ -1,8 +1,11 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie'; // Assuming you're using js-cookie for cookie handling
-
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 const AddMovie = () => {
+  const navigate =useNavigate()
   const [movieData, setMovieData] = useState({
     title: '',
     description: '',
@@ -82,8 +85,16 @@ const AddMovie = () => {
   
     try {
       const res = await axios.post('http://127.0.0.1:5000/api/', formData, { headers });
-      console.log(res.data);
-      setSuccessMessage('Movie added successfully!');
+      
+      
+      navigate('/profile')
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Add Movie successfully!",
+        showConfirmButton: false,
+        timer: 1500
+      });
       setMovieData({
         title: '',
         description: '',
@@ -97,9 +108,17 @@ const AddMovie = () => {
         category: '',
         showtimes: [], // Reset showtimes
       });
+
     } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "can not add Movie!",
+        showConfirmButton: false,
+        timer: 1500
+      });
       console.error(error);
-      setErrorMessage('Error adding movie, please try again.');
+      
     } finally {
       setLoading(false);
     }
@@ -109,6 +128,9 @@ const AddMovie = () => {
   
   return (
     <div className="container mx-auto p-4">
+      <Helmet>
+                <title>Movie | Add Movie</title>
+            </Helmet>
       <h2 className="text-2xl font-bold mb-4">Add Movie</h2>
       <form onSubmit={handleSubmit} className="bg-gray-100 p-6 rounded-lg shadow-md">
         {/* Movie Title */}

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
 import Cookies from 'js-cookie'; // Import the js-cookie library
 import { AuthContext } from '../../../provider/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 
 const AddAdmin = () => {
     const [users, setUsers] = useState([]); // State to store users
@@ -57,6 +58,11 @@ const AddAdmin = () => {
 
     return (
         <div className="overflow-x-auto">
+<Helmet>
+                <title>Movie | Add Admin</title>
+            </Helmet>
+
+
             <table className="table">
                 <thead>
                     <tr>

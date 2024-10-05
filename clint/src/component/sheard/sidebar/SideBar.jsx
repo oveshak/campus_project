@@ -72,14 +72,9 @@ const SideBar = ({ data, handleLogout }) => {
       {data.role === 'user' && (
         <div className="w-full flex-col items-center justify-center hidden lg:flex">
           <NavLink to="/profile" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded transition-all">
-            Favourites
+          Order History
           </NavLink>
-          <NavLink to="/profile/orderHistory" className="text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-zinc-900 rounded">
-            Order History
-          </NavLink>
-          <NavLink to="/profile/settings" className="text-zinc-100 font-semibold w-full py-2 mt-4 text-center hover:bg-zinc-900 rounded">
-            Settings
-          </NavLink>
+          
         </div>
       )}
 
@@ -97,6 +92,22 @@ const SideBar = ({ data, handleLogout }) => {
           <NavLink to="/profile/showtime" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded">
             Add Showtime
           </NavLink>
+          <NavLink to="/profile/allbooking" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded">
+            All booking
+          </NavLink>
+          <NavLink to="/profile/allshowtime" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded">
+            All Show Time
+          </NavLink>
+<NavLink to="/profile/imageadd" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded">
+            Add Image
+          </NavLink>
+<NavLink to="/profile/contact" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded">
+            All Contact
+          </NavLink>
+<NavLink to="/profile/addHeroImage" className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded">
+            Add Hero Image
+          </NavLink>
+          
         </div>
       )}
 

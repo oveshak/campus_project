@@ -16,6 +16,7 @@ const Login = () => {
 
     // Get the 'from' location or set it to home if undefined
    const from=location.state?.from?.pathname || "/"
+   console.log(from)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,12 +34,19 @@ const Login = () => {
                 timer: 1300,
             });
             e.target.reset()
-            navigate(from,{replace:true}) // Navigate to the page the user came from
+             // Navigate to the page the user came from
+             setTimeout(() => {
+                // Refresh the page
+                
+                // Navigate to login page after refresh
+                navigate(from,{replace:true})
+                window.location.reload();
+            }, 1000);
         } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: "Invalid credentials!",
+                text: "Logn Failed",
             });
         } finally {
             setLoading(false);
