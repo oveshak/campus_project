@@ -75,7 +75,7 @@ export const bookTicket = async (req, res) => {
             }],
             mode: 'payment',
             success_url: 'http://localhost:5173/profile',  // Update with appropriate URLs
-            cancel_url: 'http://localhost:5173/cancel',
+            cancel_url: 'http://localhost:5173/',
             metadata: {
                 bookingId: newBooking._id.toString(), // Attach booking ID to the session
             },
@@ -133,7 +133,7 @@ export const getUserWithBookings = async (req, res) => {
 // Get all user ticket bookings (Admin view)
 export const getAllUserBookings = async (req, res) => {
     try {
-        const userBookings = await TicketBooking.find().populate('user showtime'); // Populate the user and showtime details
+        const userBookings = await TicketBooking.find().populate('user showtime movie'); // Populate the user and showtime details
 
         if (userBookings.length === 0) {
             return res.status(404).json({ message: 'No ticket bookings found' });

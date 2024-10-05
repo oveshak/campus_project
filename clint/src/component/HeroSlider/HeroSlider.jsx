@@ -27,7 +27,7 @@ const HeroSlider = () => {
                 <div key={index}>
                     <img 
                         src={`http://127.0.0.1:5000${imageData.image}`} // Adjust this depending on your API response structure
-                        className='rounded-[14px] w-full h-auto object-cover' 
+                        className='rounded-[14px] w-full h-full object-cover' 
                         alt={`Slide ${index + 1}`} 
                     />
                 </div>

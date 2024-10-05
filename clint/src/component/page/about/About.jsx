@@ -15,8 +15,7 @@ const About = () => {
     <div className="max-w-md">
       <h1 className="text-5xl font-bold">About Page</h1>
       <p className="py-6">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
+        BookMyTicket is a movie ticket purchasing platform where you can purchase ticket seamlessly. Grab the Chance and enjoy your quality time.
       </p>
       
     </div>

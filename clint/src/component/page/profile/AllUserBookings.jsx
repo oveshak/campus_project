@@ -93,7 +93,7 @@ const AllUserBookings = () => {
                         {bookings.map((booking) => (
                             <tr key={booking._id}>
                                 <td className="border px-4 py-2">{booking.user?.name || 'N/A'}</td>
-                                <td className="border px-4 py-2">{booking.showtime?.movie?.title || 'N/A'}</td>
+                                <td className="border px-4 py-2">{booking.movie ? booking.movie.title : 'N/A'}</td>
                                 <td className="border px-4 py-2">{booking.showtime ? formatShowtime(booking.showtime.showDate, booking.showtime.showTime) : 'N/A'}</td>
                                 <td className="border px-4 py-2">{booking.ticketQuantity || 'N/A'}</td>
                                 <td className="border px-4 py-2">{booking.totalPrice || 'N/A'}</td>
